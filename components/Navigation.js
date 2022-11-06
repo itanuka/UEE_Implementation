@@ -32,7 +32,6 @@ const style = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignContent: 'flex-start',
-    justifyContent: 'space-between',
     marginTop: 20
   },
   text: {

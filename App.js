@@ -1,151 +1,63 @@
-// /**
-//  * Sample React Native App
-//  * https://github.com/facebook/react-native
-//  *
-//  * @format
-//  * @flow strict-local
-//  */
-
-// import React from 'react';
-// import type {Node} from 'react';
-// import {
-//   SafeAreaView,
-//   ScrollView,
-//   StatusBar,
-//   StyleSheet,
-//   Text,
-//   useColorScheme,
-//   View,
-// } from 'react-native';
-
-// import {
-//   Colors,
-//   DebugInstructions,
-//   Header,
-//   LearnMoreLinks,
-//   ReloadInstructions,
-// } from 'react-native/Libraries/NewAppScreen';
-
-// /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
-//  * LTI update could not be added via codemod */
-// const Section = ({children, title}): Node => {
-//   const isDarkMode = useColorScheme() === 'dark';
-//   return (
-//     <View style={styles.sectionContainer}>
-//       <Text
-//         style={[
-//           styles.sectionTitle,
-//           {
-//             color: isDarkMode ? Colors.white : Colors.black,
-//           },
-//         ]}>
-//         {title}
-//       </Text>
-//       <Text
-//         style={[
-//           styles.sectionDescription,
-//           {
-//             color: isDarkMode ? Colors.light : Colors.dark,
-//           },
-//         ]}>
-//         {children}
-//       </Text>
-//     </View>
-//   );
-// };
-
-// const App: () => Node = () => {
-//   const isDarkMode = useColorScheme() === 'dark';
-
-//   const backgroundStyle = {
-//     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-//   };
-
-//   return (
-//     <SafeAreaView style={backgroundStyle}>
-//       <StatusBar
-//         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-//         backgroundColor={backgroundStyle.backgroundColor}
-//       />
-//       <ScrollView
-//         contentInsetAdjustmentBehavior="automatic"
-//         style={backgroundStyle}>
-//         <Header />
-//         <View
-//           style={{
-//             backgroundColor: isDarkMode ? Colors.black : Colors.white,
-//           }}>
-//           <Section title="Step One">
-//             Edit <Text style={styles.highlight}>App.js</Text> to change this
-//             screen and then come back to see your edits.
-//           </Section>
-//           <Section title="See Your Changes">
-//             <ReloadInstructions />
-//           </Section>
-//           <Section title="Debug">
-//             <DebugInstructions />
-//           </Section>
-//           <Section title="Learn More">
-//             Read the docs to discover what to do next:
-//           </Section>
-//           <LearnMoreLinks />
-//         </View>
-//       </ScrollView>
-//     </SafeAreaView>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   sectionContainer: {
-//     marginTop: 32,
-//     paddingHorizontal: 24,
-//   },
-//   sectionTitle: {
-//     fontSize: 24,
-//     fontWeight: '600',
-//   },
-//   sectionDescription: {
-//     marginTop: 8,
-//     fontSize: 18,
-//     fontWeight: '400',
-//   },
-//   highlight: {
-//     fontWeight: '700',
-//   },
-// });
-
-// export default App;
-
-
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import AddBlogPost from './components/AddBlogPost';
+import HomeScreen from './screens/HomeScreen';
+import { Image, View } from 'react-native';
+import AddBlogPost from './screens/AddBlogPost';
+import EditBlogPost from './screens/EditBlogPost';
+import MyBlogPosts from './screens/MyBlogPosts';
+import SingleBlogPost from './screens/SingleBlogPost';
+
+
+const Stack = createNativeStackNavigator();
 
 function App() {
   return (
-    <View style={style.canvas}>
-      <Text style={style.text} > Legal Eagle 🦅 </Text>
-      <AddBlogPost/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="MyArticles"
+          component={MyBlogPosts}
+          options={{
+            title: "My Blog Posts", "headerTintColor": "blanchedalmond" ,
+            headerBackground: () => <Image
+            style={{ height: "100%", width: "100%", marginTop: 20 }}
+            source={{ uri: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.TzTHxzrySdGmBinsRtqZZgHaEK%26pid%3DApi&f=1&ipt=260d1df7bcfa21eb3ac8d62d21e54062d0749fcdddfd9bd2f46f52b3d9be31f1&ipo=images" }} />
+          }}
+        />
+        <Stack.Screen
+          name="ComposeArticle"
+          component={AddBlogPost}
+          options={{
+            title: 'Add Blog Post', "navigationBarColor": "powderblue", "headerTintColor": "blanchedalmond",
+            headerBackground: () => <Image
+              style={{ height: "100%", width: "100%", marginTop: 20 }}
+              source={{ uri: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.TzTHxzrySdGmBinsRtqZZgHaEK%26pid%3DApi&f=1&ipt=260d1df7bcfa21eb3ac8d62d21e54062d0749fcdddfd9bd2f46f52b3d9be31f1&ipo=images" }} />
+          }}
+        />
+        <Stack.Screen
+          name="EditArticle"
+          component={EditBlogPost}
+          options={{
+            title: "Edit Blog Article", "headerTintColor": "blanchedalmond" ,
+            headerBackground: () => <Image
+            style={{ height: "100%", width: "100%", marginTop: 20 }}
+            source={{ uri: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.TzTHxzrySdGmBinsRtqZZgHaEK%26pid%3DApi&f=1&ipt=260d1df7bcfa21eb3ac8d62d21e54062d0749fcdddfd9bd2f46f52b3d9be31f1&ipo=images" }} />
+          }}
+        />
+        <Stack.Screen
+          name="SingleArticle"
+          component={SingleBlogPost}
+          options={{
+            title: "Blog Article", "headerTintColor": "blanchedalmond" ,
+            headerBackground: () => <Image
+            style={{ height: "100%", width: "100%", marginTop: 20 }}
+            source={{ uri: "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse4.mm.bing.net%2Fth%3Fid%3DOIP.TzTHxzrySdGmBinsRtqZZgHaEK%26pid%3DApi&f=1&ipt=260d1df7bcfa21eb3ac8d62d21e54062d0749fcdddfd9bd2f46f52b3d9be31f1&ipo=images" }} />
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
-
-const style = StyleSheet.create({
-  canvas: {
-    backgroundColor: 'royalblue',
-    justifyContent: "flex-start",
-    alignItems: 'center'
-  },
-  text: {
-    marginTop: 20,
-    fontFamily: 'Consolas',
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: 'blanchedalmond',
-    justifyContent: "center"
-  }
-})
 
 export default App

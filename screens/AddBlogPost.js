@@ -1,18 +1,18 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
-import CustomButton from './CustomButton'
-import Navigation from './Navigation'
-import TextArea from './TextArea'
+import { Button, StyleSheet, TouchableNativeFeedback, View } from 'react-native'
+import CustomButton from '../components/CustomButton'
+import Navigation from '../components/Navigation'
+import TextArea from '../components/TextArea'
 
-function AddBlogPost() {
-  return (
-    <View>
-        <Navigation navName="Add Blog Post"/>
-        <TextArea textStyle={style.title} textContent="Add Title"/>
-        <TextArea textStyle={style.content} textContent="Add Blog Content"/>
-        <CustomButton textual="SUBMIT" styling={style.styling}/>
-    </View>
-  )
+function AddBlogPost({ navigation }) {
+    return (
+        <View>
+            <Navigation navName="Add Blog Post" />
+            <TextArea textStyle={style.title} textContent="Add Title" />
+            <TextArea textStyle={style.content} textContent="Add Blog Content" />
+            <Button title='SUBMIT' onPress={() => navigation.navigate("EditArticle")} />
+        </View>
+    )
 }
 
 const style = StyleSheet.create({

@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Button } from 'react-native'
 
-function CustomButton({textual, styling}) {
+function CustomButton({textual, styling, onPress}) {
   return (
     <View style={styling}>
-      <Button title={textual}/>
+      <Button title={textual} onPress={onPress}/>
     </View>
   )
 }
