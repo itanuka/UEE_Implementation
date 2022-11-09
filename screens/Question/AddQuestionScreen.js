@@ -16,7 +16,9 @@ import {
 import { db } from "../../Firebase/Firebase-config";
 
 
-export default function AddQuestionScreen() {
+export default function AddQuestionScreen({ route }) {
+
+    const userEmail = route.params.userEmail;
 
     const navigation = useNavigation();
     const questionsCollection = collection(db, 'questions')
@@ -28,8 +30,9 @@ export default function AddQuestionScreen() {
 
     const handleSubmit = async () => {
         try {
-            const response = await addDoc(questionsCollection, { title, category, description });
+            const response = await addDoc(questionsCollection, { title, category, description, userEmail });
             alert("Question Published Successfully");
+            navigation.navigate('My Question List')
 
         } catch (error) {
             const errorCode = error.code;

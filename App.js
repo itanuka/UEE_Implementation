@@ -10,7 +10,7 @@ import SignUpPage from "./screens/Login/SignUpPage";
 import ClientHome from "./screens/Client/ClientHome";
 import UpdateUser from "./screens/Login/UpdateUser";
 import AddQuestionScreen from "./screens/Question/AddQuestionScreen";
-// import MyQuestionListScreen from "./screens/Question/MyQuestionListScreen";
+import MyQuestionListScreen from "./screens/Question/MyQuestionListScreen";
 // import ViewQuestionScreen from "./screens/Question/ViewQuestionScreen";
 // import UpdateQuestionScreen from "./screens/Question/UpdateQuestionScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -68,7 +68,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Ask New Question" component={AddQuestionScreen} options={{ headerShown: false }} />
-          {/* <Stack.Screen name="My Question List" component={MyQuestionListScreen} options={{ headerShown: false }} /> */}
+          <Stack.Screen name="My Question List" component={MyQuestionListScreen} options={{ headerShown: false }} />
           {/* <Stack.Screen name="View Question" component={ViewQuestionScreen} options={{ headerShown: false }} /> */}
           {/* <Stack.Screen name="Update Question" component={UpdateQuestionScreen} options={{ headerShown: false }} /> */}
           <Stack.Screen name="Sign Up" component={SignUpPage} />
