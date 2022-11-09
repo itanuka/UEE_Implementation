@@ -3,44 +3,50 @@ import React, { useState, Component } from 'react'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Button, Card, List, TextInput } from 'react-native-paper';
-import { useNavigation } from "@react-navigation/native";
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import { db } from "../../Firebase/Firebase-config";
 import {
     collection,
     getDocs,
-    addDoc,
-    setDoc,
-    doc,
+    updateDoc,
     getDoc,
+    deleteDoc,
+    doc,
 } from "firebase/firestore";
-import { db } from "../../Firebase/Firebase-config";
+import { useNavigation } from "@react-navigation/native";
 
 
-export default function AddQuestionScreen({ route }) {
+export default function UpdateQuestionScreen({ route }) {
 
     const userEmail = route.params.userEmail;
 
+    const { data } = route.params;
     const navigation = useNavigation();
+    const [ignored, forceUpdate] = React.useReducer((x) => x + 1, 0);
+
     const questionsCollection = collection(db, 'questions')
 
-    const [title, setTitle] = useState("");
-    const [category, setCategory] = useState("");
-    const [description, setDescription] = useState("");
+    const [title, setTitle] = useState(data.title);
+    const [category, setCategory] = useState(data.category);
+    const [description, setDescription] = useState(data.description);
     const [showModel, setShowModel] = useState(false);
     const [modalTitle, setModalTitle] = useState("");
     const [modalSubtitle, setModalSubtitle] = useState("");
 
     const handleSubmit = async () => {
         try {
-            const response = await addDoc(questionsCollection, { title, category, description, userEmail });
-            setModalTitle("Success...!");
-            setModalSubtitle("Your Question is submitted succesfully");
+
+            const docRef = await doc(db, 'questions', data.id)
+
+            const response = await updateDoc(docRef, { title, category, description, userEmail });
+            setModalTitle("Updated...!");
+            setModalSubtitle("Your Question is updated succesfully");
             setShowModel(true);
             setTimeout(() => {
                 setShowModel(false)
-                navigation.navigate('My Question List')
-            }, 1000)
-
+                navigation.popToTop()
+            }, 3000)
 
         } catch (error) {
             const errorCode = error.code;
@@ -96,7 +102,6 @@ export default function AddQuestionScreen({ route }) {
         )
     }
 
-
     return (
         <View style={{ flex: 1, width: "100%", height: "100%", backgroundColor: "#FBFCFC", paddingTop: StatusBar.currentHeight }}>
             {rnderModal()}
@@ -140,21 +145,25 @@ export default function AddQuestionScreen({ route }) {
                             numberOfLines={10}
                         />
                     </View>
-                    <View style={{ width: '100%', alignItems: "center", paddingTop: 20, top: 40, padding: 13 }}>
+                    <View style={{ width: '100%', alignItems: 'center', paddingTop: 20, marginBottom: 10, padding: 13 }}>
                         <Button
                             mode="contained"
                             dark={false}
+                            style={{ width: 150 }}
                             color={'rgba(114, 120, 245, 0.64)'}
-                            onPress={handleSubmit} >
-                            Submit
+                            onPress={handleSubmit}
+                        >
+                            <Icon name='save' size={25} color="green" />
                         </Button>
                     </View>
                 </KeyboardAwareScrollView>
             </ImageBackground>
         </View>
     )
-}
 
+
+
+}
 
 const styles = StyleSheet.create({
     centeredView: {
