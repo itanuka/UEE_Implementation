@@ -1,91 +1,89 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
-} from 'react-native';
+  Platform,
+  StatusBar,
+  TouchableOpacity,
+  Image,
+} from "react-native";
+import LoginHome from "./screens/Login/LoginHome";
+import SignUpPage from "./screens/Login/SignUpPage";
+import ClientHome from "./screens/Client/ClientHome";
+import UpdateUser from "./screens/Login/UpdateUser";
+import AddQuestionScreen from "./screens/Question/AddQuestionScreen";
+// import MyQuestionListScreen from "./screens/Question/MyQuestionListScreen";
+// import ViewQuestionScreen from "./screens/Question/ViewQuestionScreen";
+// import UpdateQuestionScreen from "./screens/Question/UpdateQuestionScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-import RootNavigator from './src/navigation/RootNavigator';
+import { useNavigation } from "@react-navigation/native";
+import { getAuth } from "firebase/auth";
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+import React, { useState } from "react";
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Stack = createNativeStackNavigator();
+
+function LogoTitle() {
+  const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
+
+  const hideMenu = () => setVisible(false);
+
+  const showMenu = () => setVisible(true);
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View>
+      <Menu
+        style={{ width: 200 }}
+        visible={visible}
+        anchor={
+          <TouchableOpacity onPress={showMenu}>
+            <Image
+              style={{ width: 20, height: 22 }}
+              source={require("./assets/menu.png")}
+            />
+          </TouchableOpacity>
+        }
+        onRequestClose={hideMenu}
+      >
+        <MenuItem
+          onPress={() => {
+            const auth = getAuth();
+            auth.signOut().then(() => navigation.navigate("Sign In"));
+          }}
+        >
+          Sign Out
+        </MenuItem>
+      </Menu>
     </View>
   );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
+}
+export default function App() {
   return (
-    <View style={{ flex: 1, flexDirection: 'column', backgroundColor: "white" }}>
-      <StatusBar translucent backgroundColor={'rgba(23, 30, 69, 1)'} barStyle='light-content' />
-    <RootNavigator/>
-      
+    <View
+      style={{
+        marginTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+        flex: 1,
+      }}
+    >
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Ask New Question" component={AddQuestionScreen} options={{ headerShown: false }} />
+          {/* <Stack.Screen name="My Question List" component={MyQuestionListScreen} options={{ headerShown: false }} /> */}
+          {/* <Stack.Screen name="View Question" component={ViewQuestionScreen} options={{ headerShown: false }} /> */}
+          {/* <Stack.Screen name="Update Question" component={UpdateQuestionScreen} options={{ headerShown: false }} /> */}
+          <Stack.Screen name="Sign Up" component={SignUpPage} />
+          <Stack.Screen name="Sign In" component={LoginHome} />
+          <Stack.Screen name="Update user" component={UpdateUser} />
+          <Stack.Screen
+            name="Client"
+            component={ClientHome}
+            options={{
+              headerBackVisible: true,
+              headerRight: () => <LogoTitle />,
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
     </View>
   );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+}
