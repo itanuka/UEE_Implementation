@@ -1,6 +1,6 @@
 import { FlatList, Image, ImageBackground, SafeAreaView, StatusBar, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState, useEffect, Component } from 'react'
-import { Card, Divider, Paragraph } from 'react-native-paper';
+import { Card, Divider, Paragraph, Button } from 'react-native-paper';
 import { useNavigation } from "@react-navigation/native";
 
 
@@ -218,6 +218,16 @@ export default function MyQuestionListScreen({ route }) {
             <ImageBackground style={{ width: '100%', height: '100%' }}
             // source={require('../../assests/Images/background.png')}
             >
+                <View style={{ width: '100%', alignItems: "center", paddingTop: 20, top: 20, padding: 13, marginBottom: 20 }}>
+                    <Button
+                        mode="contained"
+                        dark={false}
+                        color={'rgba(114, 120, 245, 0.64)'}
+                        onPress={() => navigation.navigate('Ask New Question')}
+                    >
+                        Ask New Question
+                    </Button>
+                </View>
                 {renderMyQuestionList()}
             </ImageBackground>
         </View>
