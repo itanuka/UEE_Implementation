@@ -38,8 +38,9 @@ export default function UpdateQuestionScreen({ route }) {
         try {
 
             const docRef = await doc(db, 'questions', data.id)
+            let lastModified = new Date().toLocaleString()
 
-            const response = await updateDoc(docRef, { title, category, description, userEmail });
+            const response = await updateDoc(docRef, { title, category, description, userEmail, lastModified });
             setModalTitle("Updated...!");
             setModalSubtitle("Your Question is updated succesfully");
             setShowModel(true);
@@ -134,6 +135,10 @@ export default function UpdateQuestionScreen({ route }) {
                             <Picker.Item label="-- Select Category" value="-- Select Category" />
                             <Picker.Item label="Tax" value="Tax" />
                             <Picker.Item label="Intellectual Property" value="Intellectual Property" />
+                            <Picker.Item label="Criminal" value="Criminal" />
+                            <Picker.Item label="Employment" value="Employment" />
+                            <Picker.Item label="Family" value="Family" />
+                            <Picker.Item label="Others" value="Others" />
                         </Picker>
                     </View>
                     <View style={{ padding: 13, }}>

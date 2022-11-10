@@ -32,7 +32,10 @@ export default function AddQuestionScreen({ route }) {
 
     const handleSubmit = async () => {
         try {
-            const response = await addDoc(questionsCollection, { title, category, description, userEmail });
+
+            let lastModified = new Date().toLocaleString()
+
+            const response = await addDoc(questionsCollection, { title, category, description, userEmail, lastModified });
             setModalTitle("Success...!");
             setModalSubtitle("Your Question is submitted succesfully");
             setShowModel(true);
@@ -129,6 +132,10 @@ export default function AddQuestionScreen({ route }) {
                             <Picker.Item label="-- Select Category" value="-- Select Category" />
                             <Picker.Item label="Tax" value="Tax" />
                             <Picker.Item label="Intellectual Property" value="Intellectual Property" />
+                            <Picker.Item label="Criminal" value="Criminal" />
+                            <Picker.Item label="Employment" value="Employment" />
+                            <Picker.Item label="Family" value="Family" />
+                            <Picker.Item label="Others" value="Others" />
                         </Picker>
                     </View>
                     <View style={{ padding: 13, }}>

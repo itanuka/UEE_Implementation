@@ -38,11 +38,19 @@ export default function MyQuestionListScreen({ route }) {
         },
         {
             id: 3,
-            name: 'Tax1'
+            name: 'Criminal'
         },
         {
             id: 4,
-            name: 'Tax2'
+            name: 'Employment'
+        },
+        {
+            id: 5,
+            name: 'Family'
+        },
+        {
+            id: 6,
+            name: 'Others'
         },
     ]);
 
@@ -178,18 +186,18 @@ export default function MyQuestionListScreen({ route }) {
                                 titleNumberOfLines={1}
                                 subtitleNumberOfLines={1}
                                 titleStyle={{ color: 'rgba(0, 0, 0, 1)', fontSize: 20 }}
-                                subtitle={item.categoryName}
+                                subtitle={item.category}
                                 subtitleStyle={{ color: 'rgba(0, 0, 0, 1)', fontSize: 18 }}
                             />
                             <Card.Content>
                                 <Paragraph numberOfLines={2} style={{ color: 'rgba(0, 0, 0, 1)', fontSize: 16, lineHeight: 24 }}>
-                                    {item.category}
+                                    {item.description}
                                 </Paragraph>
                             </Card.Content>
                             <Card.Content>
-                                <Paragraph numberOfLines={2} style={{ color: 'rgba(0, 0, 0, 1)', fontSize: 16, lineHeight: 24 }}>
-                                    {item.description}
-                                </Paragraph>
+                                <Text numberOfLines={2} style={{ color: 'rgba(0, 0, 0, 1)', fontSize: 16, lineHeight: 24, textAlign: 'right' }}>
+                                    {item.lastModified}
+                                </Text>
                             </Card.Content>
                         </Card>
                     </TouchableOpacity>
