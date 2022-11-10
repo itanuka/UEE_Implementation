@@ -1,10 +1,10 @@
 import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 
-function TextArea({textStyle, textContent}) {
+function TextArea({textStyle, textContent, setState}) {
   return (
     <View style={style.canvas}>
-        <TextInput style={textStyle} placeholder={textContent}/>
+        <TextInput style={textStyle} placeholder={textContent} onChange={(e)=>setState(e.target.value)} />
     </View>
   )
 }

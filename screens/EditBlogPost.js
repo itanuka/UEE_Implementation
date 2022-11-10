@@ -5,11 +5,11 @@ import CustomButton from '../components/CustomButton'
 import Navigation from '../components/Navigation'
 import TextArea from '../components/TextArea'
 
-let font = ""
+// let font = ""
 
 function EditBlogPost() {
     const route = useRoute()
-    font = route.params.font
+    let font = route.params.font || ""
     let title = route.params.title || ""
     let content = route.params.content || ""
     
@@ -48,7 +48,7 @@ const style = StyleSheet.create({
         fontSize: 20,
         marginVertical: 10,
         borderRadius: 8,
-        fontFamily: font
+        // fontFamily: font
     },
     canvas: {
         justifyContent: 'center',

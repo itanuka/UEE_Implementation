@@ -1,9 +1,18 @@
+import { useRoute } from '@react-navigation/native'
 import React from 'react'
 import { Alert, StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5'
 
-function ArticleListItem({ id, title, pubDate, navigation, font }) {
-    let content = "Static content"
+function ArticleListItem({ navigation, id, font, title, pubDate }) {
+
+    // let route = useRoute();
+    // let id = route.params.id
+    // let font = route.params.font
+    // let title = route.params.title
+    
+    let content = "Content of article "
+    content += id
+
     return (
         <View style={styles.list}>
             <Text style={styles.text}> {title} </Text>
